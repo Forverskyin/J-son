@@ -37,7 +37,7 @@
 	  
 	  
 			
-			<div id="player">
+			<div id="player"class="video-container">
 			<iframe  width="100%" height="800" src="http://www.youtube.com/embed/cmlCuzn_mqI" frameborder="0" allowfullscreen></iframe>
 			</div>
 
@@ -47,6 +47,18 @@
                   <a href='javascript:videochange("Mmyn03NhB2A")'class="collection-item">Cannibal</a>
                   <a href='javascript:videochange("xkIytYlDD_o")'class="collection-item">Dollhouse</a>
 				  <a href='javascript:videochange("cvaIgq5j2Q8")'class="collection-item">Angel with a Shotgun</a>
+                  <a href='javascript:videochange("qgeaoW55Pks")'class="collection-item">Just a Dream</a>
+                  
+            </div>
+ 
+         
+ 
+      
+	  
+	  
+	  
+    </body>
+  </html>
                   <a href='javascript:videochange("qgeaoW55Pks")'class="collection-item">Just a Dream</a>
                   
             </div>
