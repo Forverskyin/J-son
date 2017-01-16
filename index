@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, user-scalable=no">
+  <!--Import Google Icon Font-->
+      <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <!--Import materialize.css-->
+      <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+
+      <!--Let browser know website is optimized for mobile-->
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <style>
+    html{
+      height:100%;
+    }
+    body{
+      background:url('http://wallpapercave.com/wp/24UgzNL.jpg');
+      background-size:cover;
+      background-attachment: fixed;
+      height:100%;
+    }
+    .ui-content{
+      background-color:rgb(0,0,0,.5);
+    }
+    .set{
+      }
+    #footer{
+           width : 50%;
+           position : fixed;
+           padding:0 10px;
+           z-index : 3;
+    }
+    .name{
+      width:100%;
+      text-align:right;
+      font-size:25px;
+      color:#fff;
+      text-shadow:#000 0 0 5px,#000 0 0 2px;
+      margin:10px 15px 10px 0;
+    }
+    .me .name{
+      color:#f0ffff;
+      text-align:left;
+      margin:10px 0 10px 10px;
+    }
+    .message{
+      font-size:20px;
+      text-shadow:none;
+      box-sizing:border-box;
+      width:100%;
+      padding:10px 20px;
+      border-radius:10px;
+      margin-bottom:15px;
+      background:rgba(128,128,105,.6);
+      position:relative;
+      color:#fafafa;
+      text-align:right;
+      
+    }
+    .message::before{
+      content:'';
+      width:0;
+      height:0;
+      position:absolute;
+      bottom:-20px;
+      right:15px;
+      border-width:10px 7px;
+      border-style:solid;
+      border-top-color:rgba(128,128,105,.6);
+      border-left-color:rgba(0,0,0,0);
+      border-right-color:rgba(0,0,0,0);
+      border-bottom-color:rgba(0,0,0,0);
+    }
+    .me .message{
+      background:rgba(240,255,255,.6);
+      text-align:left;
+    }
+    .me .message::before{
+      border-top-color:rgba(240,255,255,.6);
+      left:15px;
+      right:auto;
+    }
+	#root{
+	  width : 50%;
+	  height: 50%;
+          top: 50px;
+	  left : 100px;
+	  z-index : 3;
+         position : fixed;
+	  overflow : visible;
+	}
+       #pano{
+	  width : 65%;
+	  height: 50%;
+	  left : 700px;
+	  z-index : 3;
+         position : fixed;
+	  overflow : visible;
+	}
+  </style>
+  
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script src="//code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+  
+
+  <script>
+    (function init(document, $) {
+
+      var today = new Date;
+      var genid = "iden" + today.getTime(); 
+      $(document).on('pagecreate', '#home', function () {
+        loadJS('https://www.gstatic.com/firebasejs/3.6.5/firebase.js', function () {
+           var config = {
+       apiKey: "AIzaSyB5WrxetT4dk9SpgVh5jeYgrrFVpeAh7cw",
+       authDomain: "connection-e24e3.firebaseapp.com",
+       databaseURL: "https://connection-e24e3.firebaseio.com",
+       storageBucket: "connection-e24e3.appspot.com",
+       messagingSenderId: "700902636980"
+  };
+         firebase.initializeApp(config);
+          var myDataRef =  firebase.database().ref("message");
+          
+          
+          $('#messageinput').keypress(function(e) {
+           
+            if (e.keyCode == 13 &&$('#nameinput').val()!='') {
+              var userid = genid;
+              var name = $('#nameinput').val();
+              var text = $('#messageinput').val();
+              myDataRef.push({
+                name: name,
+                text: text,
+                userid: userid,
+				
+              });
+              $('#messageinput').val('');
+            }
+          });
+           $(document).ready(function(){
+           $("#sub").click(function(){
+             if($('#nameinput').val()!=''&&$('#messageinput').val()!=''){
+              var userid = genid;
+              var name = $('#nameinput').val();
+              var text = $('#messageinput').val();
+
+              myDataRef.push({
+                name: name,
+                text: text,
+                userid: userid 
+              });
+              }
+              if($('#nameinput').val()!='' && $('#messageinput').val()!=''){
+              $('#messageinput').val('');}
+              });
+              });
+          myDataRef.on('child_added', function (snapshot) {
+            var message = snapshot.val();
+            displayChatMessage(message.name, message.text, message.userid);
+            
+          });
+
+          function displayChatMessage(name, text, userid) {
+           
+            $('#messagesDiv').prepend(
+              '<div class="' + userid + '">' +
+              '<div class="message">' + text + '</div>' +
+              '<div class="name">' + name + '</div>' +
+              '</div>'
+            );
+            if (userid == genid) {
+              $('.' + userid).addClass('me');}
+       
+          };
+
+        });
+      });
+
+
+      function loadJS(src, callback) {
+        var head = document.getElementsByTagName("head")[0],
+          script = document.createElement('script');
+        script.src = src;
+        script.onload = callback;
+        
+        head.appendChild(script);
+        head.removeChild(script);
+
+              }
+
+    }(document, jQuery));
+  </script>
+  <title>NCHU MIS ONLINE</title>
+</head>
+
+<body oncontextmenu="return false" onload="getLocation()">
+  <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+      <script type="text/javascript" src="js/materialize.min.js"></script>
+     <script>
+function getLocation()
+  {
+  if (navigator.geolocation)
+    {
+		navigator.geolocation.getCurrentPosition(initPano);
+        navigator.geolocation.getCurrentPosition(init);       
+    }
+  
+  }
+</script>
+<script>
+         function initPano(x) {
+             var init = { lat: x.coords.latitude, lng: x.coords.longitude };
+  var map = new google.maps.Map(document.getElementById('pano'), {
+    zoom: 9,
+    center: init
+  });
+ var localRef =  firebase.database().ref("local");
+ var x1=x.coords.latitude;
+ var y1=x.coords.longitude;
+  localRef.push({
+     x1:x1,
+     y1:y1             
+   
+              });
+  localRef.on('child_added', function (snapshot) {
+            var local = snapshot.val();
+            var marker = new google.maps.Marker({
+            position: {lat:local.x1,lng:local.y1},
+    
+            map: map,
+            title:"hello world"
+            });
+            
+          });
+
+ 
+}
+
+  
+
+
+    </script>
+   <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBHffEpjiXawbFej5v4HJppEImkftmbMzo&callback=initMap"></script>	  
+  <div id="root" style="position: fixed;z-index: 3">
+   <div id="pano" style="position :fixed;overflow :visible;"></div></div>
+  <div id="home" data-role="page" >
+    <div style="text-align : center;color : #fafafa;font-size : 30px;">
+      NCHU MIS Online
+          </div>
+  
+    <div id="footer" class="input-field col s6">
+	
+    <input type="text" id="nameinput" class="validate" placeholder="取個名字吧~"style="color : #fafafa">
+   
+    <input type="text" id="messageinput" placeholder="在想什麼呢..."style="color: #fafafa">
+    <button class="btn waves-effect waves-light" id="sub" onclick="got()">送出
+    <i class="material-icons right">▶</i>
+  </button>
+    </div>
+    </br></br></br></br></br></br></br></br></br>
+
+    <div role="main" class="ui-content">
+      <div id="messagesDiv" style="position:relative;z-index : 1"></div>
+    </div>
+    
+  </div>
+</body>
+
+</html>
