@@ -106,6 +106,9 @@
   
 
   <script>
+    jQuery(document).on("mobileinit", function() {
+    jQuery.mobile.autoInitializePage = false;
+    });
     (function init(document, $) {
 
       var today = new Date;
@@ -265,7 +268,7 @@ function getLocation()
     </div>
     
   </div>
-  <div class='ui-loader ui-body-a ui-corner-all'><span class='ui-icon ui-icon-loading spin'></span><h1></h1></div>	
+ 	
 </body>
 
 </html>
