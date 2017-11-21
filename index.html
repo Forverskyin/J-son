@@ -106,11 +106,9 @@
   
 
   <script>
-    jQuery(document).on("mobileinit", function() {
-    jQuery.mobile.autoInitializePage = false;
-    });
+    
     (function init(document, $) {
-
+     $.mobile.loading().hide();
       var today = new Date;
       var genid = "iden" + today.getTime(); 
       $(document).on('pagecreate', '#home', function () {
