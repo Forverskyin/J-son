@@ -56,7 +56,7 @@
       background:rgba(128,128,105,.6);
       position:relative;
       color:#fafafa;
-      text-align:right;
+      text-align:right !important;
       
     }
     .message::before{
@@ -175,7 +175,7 @@
            
             $('#messagesDiv').prepend(
               '<div class="' + userid + '">' +
-              '<div class="message">身高' + height+' 體重:'+  + '</div>' +
+              '<div class="message">身高' + height+' 體重:'+ weight + '</div>' +
               '<div class="name">' + name + '</div>' +
               '</div>'
             );
