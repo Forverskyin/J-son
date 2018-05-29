@@ -130,14 +130,19 @@
             if (e.keyCode == 13 &&$('#nameinput').val()!='') {
               var userid = genid;
               var name = $('#nameinput').val();
-              var text = $('#messageinput').val();
+              var height = $('#messageinput').val() / 100;
+	      var weight = $('#messageinput2').val();
+	      var bmi = weight / (height * height);
               myDataRef.push({
                 name: name,
-                text: text,
+                weight: weight,
+		height: height,
+		bmi: bmi,
                 userid: userid,
 				
               });
               $('#messageinput').val('');
+	      $('#messageinput2').val('');
             }
           });
            $(document).ready(function(){
@@ -145,29 +150,32 @@
              if($('#nameinput').val()!=''&&$('#messageinput').val()!=''){
               var userid = genid;
               var name = $('#nameinput').val();
-              var text = $('#messageinput').val();
-
+              var height = $('#messageinput').val() / 100;
+	      var weight = $('#messageinput2').val();
+	      var bmi = weight / (height * height);
               myDataRef.push({
                 name: name,
-                text: text,
-                userid: userid 
+                weight: weight,
+		height: height,
+		bmi: bmi,
+                userid: userid,
               });
               }
-              if($('#nameinput').val()!='' && $('#messageinput').val()!=''){
-              $('#messageinput').val('');}
+              $('#messageinput').val('');
+              $('#messageinput2').val('');
               });
               });
           myDataRef.on('child_added', function (snapshot) {
             var message = snapshot.val();
-            displayChatMessage(message.name, message.text, message.userid);
+            displayChatMessage(message.name, message.height,message.weight, message.userid);
             
           });
 
-          function displayChatMessage(name, text, userid) {
+          function displayChatMessage(name, height,weight, userid) {
            
             $('#messagesDiv').prepend(
               '<div class="' + userid + '">' +
-              '<div class="message">' + text + '</div>' +
+              '<div class="message">身高' + height+' 體重:'+  + '</div>' +
               '<div class="name">' + name + '</div>' +
               '</div>'
             );
@@ -255,7 +263,8 @@ function getLocation()
 	
     <input type="text" id="nameinput" class="validate" placeholder="取個名字吧~"style="color : #fafafa">
    
-    <input type="text" id="messageinput" placeholder="在想什麼呢..."style="color: #fafafa">
+    <input type="text" id="messageinput" placeholder="身高"style="color: #fafafa">
+<input type="text" id="messageinput2" placeholder="體重"style="color: #fafafa">
     <button class="btn waves-effect waves-light" id="sub" onclick="got()">送出
     <i class="material-icons right">▶</i>
   </button>
