@@ -167,15 +167,15 @@
               });
           myDataRef.on('child_added', function (snapshot) {
             var message = snapshot.val();
-            displayChatMessage(message.name, message.height,message.weight, message.userid);
+            displayChatMessage(message.name, message.height,message.weight,message.bmi, message.userid);
             
           });
 
-          function displayChatMessage(name, height,weight, userid) {
+          function displayChatMessage(name, height,weight,bmi, userid) {
            
             $('#messagesDiv').prepend(
               '<div class="' + userid + '">' +
-              '<div class="message">身高' + height+' 體重:'+ weight + '</div>' +
+              '<div class="message">身高' + height+'公尺，體重:'+ weight + '，BMI:'+bmi+'</div>' +
               '<div class="name">' + name + '</div>' +
               '</div>'
             );
